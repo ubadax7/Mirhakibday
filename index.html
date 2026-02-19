@@ -4,243 +4,235 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Mirha</title>
-
 <style>
 body {
-  margin: 0;
-  padding: 0;
-  background: #ffd6e8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
+  margin:0; padding:0;
+  background:#fff; /* white background */
+  font-family: 'Dancing Script', cursive;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:#ff69b4; /* pink text */
 }
-
-/* Floating hearts */
-.heart-bg {
-  position: absolute;
-  bottom: -20px;
-  font-size: 20px;
-  animation: floatHearts 8s linear infinite;
-  opacity: 0.7;
-}
-
-@keyframes floatHearts {
-  0% { transform: translateY(0); opacity: 0.7; }
-  100% { transform: translateY(-110vh); opacity: 0; }
-}
-
 .container {
+  position: relative;
   text-align: center;
-  position: relative;
   perspective: 1000px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 }
-
 .envelope {
-  width: 300px;
-  height: 190px;
+  width:300px;
+  height:190px;
   position: relative;
-  cursor: pointer;
-  z-index: 2;
+  cursor:pointer;
+  z-index:2;
+  transition: opacity 0.8s ease;
 }
-
 .base {
-  width: 100%;
-  height: 100%;
-  background: #ff8fab;
-  border-radius: 10px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-  position: absolute;
+  width:100%;
+  height:100%;
+  background:#ff8fab;
+  border-radius:10px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+  position:absolute;
 }
-
 .flap {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #ff6f91;
-  border-radius: 10px;
-  transform-origin: top;
-  transition: transform 0.8s ease;
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ff6f91;
+  border-radius:10px;
+  transform-origin:top;
   clip-path: polygon(0 0, 100% 0, 50% 60%);
-  pointer-events: none; /* ensures click passes through */
+  transition: transform 0.8s ease;
 }
-
-.envelope.open .flap {
-  transform: rotateX(180deg);
-}
-
 .label {
-  position: absolute;
-  width: 100%;
-  top: 50px;
-  color: white;
-  font-weight: bold;
-  font-size: 22px;
-  z-index: 3;
+  position:absolute;
+  width:100%;
+  top:50px;
+  color:white;
+  font-weight:bold;
+  font-size:22px;
+  z-index:3;
 }
-
 .sub {
-  position: absolute;
-  width: 100%;
-  top: 100px;
-  color: white;
-  font-size: 16px;
-  z-index: 3;
+  position:absolute;
+  width:100%;
+  top:100px;
+  color:white;
+  font-size:16px;
+  z-index:3;
 }
-
-.letter {
-  position: absolute;
-  width: 270px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  top: 0;
-  left: 15px;
-  transform: translateY(0);
-  opacity: 0;
-  transition: all 1s ease;
-  min-height: 230px;
-  z-index: 1;
+.paragraph {
+  max-width:450px;
+  background:transparent;
+  border-radius:10px;
+  padding:20px;
+  opacity:0;
+  transform:translateY(50px);
+  transition: all 0.8s ease;
+  font-size:20px;
+  line-height:1.5;
+  text-align:center;
+  position:relative;
+  z-index:1;
 }
-
-.envelope.open ~ .letter {
-  transform: translateY(-230px);
-  opacity: 1;
+/* line fade-in for each line */
+.line {
+  opacity:0;
+  transition: opacity 1s ease;
+  margin-bottom:10px;
 }
-
-/* Signature animation */
-.signature {
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 18px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s ease;
+.line.show { opacity:1; }
+/* signature lines */
+.signature-line {
+  opacity:0;
+  transition: opacity 1s ease;
+  font-size:26px;
+  margin-top:10px;
+  font-family: 'Dancing Script', cursive;
 }
-
-.signature.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Confetti */
+.signature-line.show { opacity:1; }
+/* confetti */
 .confetti {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  animation: fall 3s linear forwards;
+  position:absolute;
+  width:8px; height:8px;
+  animation:fall 3s linear forwards;
 }
-
 @keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity:1; }
-  100% { transform: translateY(600px) rotate(720deg); opacity:0; }
+  0% {transform:translateY(0) rotate(0deg); opacity:1;}
+  100% {transform:translateY(600px) rotate(720deg); opacity:0;}
 }
-
+/* floating hearts */
+.heart-bg {
+  position:absolute;
+  bottom:-20px;
+  font-size:20px;
+  animation:floatHearts 8s linear infinite;
+  opacity:0.7;
+}
+@keyframes floatHearts {
+  0% {transform:translateY(0); opacity:0.7;}
+  100% {transform:translateY(-110vh); opacity:0;}
+}
+/* decorations */
 .decor {
-  position: absolute;
-  font-size: 30px;
+  position:absolute;
+  font-size:30px;
 }
-
-.flower-left { left: -70px; top: 30px; }
-.flower-right { right: -70px; top: 30px; }
-.balloon-left { left: -80px; top: -100px; }
-.balloon-right { right: -80px; top: -100px; }
-
+.flower-left { left:20px; top:20px; }
+.flower-right { right:20px; top:20px; }
+.balloon-left { left:20px; top:100px; }
+.balloon-right { right:20px; top:100px; }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
 <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
-
 <div class="container">
-
   <div class="decor flower-left">🌸</div>
   <div class="decor flower-right">🌸</div>
   <div class="decor balloon-left">🎈</div>
   <div class="decor balloon-right">🎈</div>
 
-  <div class="envelope" onclick="openEnvelope(this)">
+  <div class="envelope" id="envelope">
     <div class="base"></div>
-    <div class="flap"></div>
+    <div class="flap" id="flap"></div>
     <div class="label">For Mirha 💌</div>
     <div class="sub">Click to Open</div>
   </div>
 
-  <div class="letter">
-    <p id="typedText"></p>
-    <div id="signature" class="signature">From: Ubada 🤍</div>
+  <div class="paragraph" id="paragraph">
+    <div id="linesContainer"></div>
+    <div id="signatureContainer">
+      <div class="signature-line" id="sig1">From: Ubada 🤍</div>
+      <div class="signature-line" id="sig2">Your forever bsf ✨</div>
+    </div>
   </div>
-
 </div>
 
 <script>
+const envelope = document.getElementById("envelope");
+const flap = document.getElementById("flap");
+const paragraph = document.getElementById("paragraph");
+const linesContainer = document.getElementById("linesContainer");
+const signatureLines = [
+  document.getElementById("sig1"),
+  document.getElementById("sig2")
+];
+const bgMusic = document.getElementById("bgMusic");
 
-const message = `Happy Birthday Mirha 🤍
+const messageLines = [
+"Happy Birthday Mirha 🤍",
+"You’re not just my best friend, you’re honestly like an elder sister to me — the one who guides, scolds when needed, and still stands by me no matter what.",
+"You’ve been my safe place, the person I can talk to without filtering myself, without overthinking. That kind of comfort is rare, and I don’t take it lightly.",
+"Admin of the group, manager of chaos, future big-shot lawyer — you handle everything like a boss. I genuinely admire your strength and the way you carry yourself.",
+"I just hope this year gives you the same loyalty, comfort, and support that you give to others. And I hope you always feel like you can count on me the same way I count on you.",
+"Stay strong. Stay brilliant. And don’t change. 🤍"
+];
 
-You’re not just my best friend, you’re honestly like an elder sister to me — the one who guides, scolds when needed, and still stands by me no matter what.
-
-You’ve been my safe place, the person I can talk to without filtering myself, without overthinking. That kind of comfort is rare, and I don’t take it lightly.
-
-Admin of the group, manager of chaos, future big-shot lawyer — you handle everything like a boss. I genuinely admire your strength and the way you carry yourself.
-
-I just hope this year gives you the same loyalty, comfort, and support that you give to others. And I hope you always feel like you can count on me the same way I count on you.
-
-Stay strong. Stay brilliant. And don’t change. 🤍`;
-
-let i = 0;
-let speed = 35;
-
-function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("typedText").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  } else {
-    document.getElementById("signature").classList.add("show");
+function showLines(index=0){
+  if(index >= messageLines.length){
+    // show signatures one by one
+    let sigIndex = 0;
+    function showSig(){
+      if(sigIndex>=signatureLines.length) return;
+      signatureLines[sigIndex].classList.add("show");
+      sigIndex++;
+      setTimeout(showSig, 800);
+    }
+    showSig();
+    return;
   }
+  const div = document.createElement("div");
+  div.className="line";
+  div.innerText = messageLines[index];
+  linesContainer.appendChild(div);
+  setTimeout(()=>{ div.classList.add("show"); showLines(index+1); }, 600);
 }
 
-function openEnvelope(el) {
-  el.classList.add("open");
-  document.getElementById("bgMusic").play();
-  typeWriter();
-  createConfetti();
-}
-
-function createConfetti() {
-  for (let i = 0; i < 80; i++) {
-    let conf = document.createElement("div");
-    conf.className = "confetti";
-    conf.style.left = Math.random() * window.innerWidth + "px";
-    conf.style.backgroundColor =
-      ["#ff6f91","#ffc2d1","#ff8fab","#ffffff","#ffb3c6"]
-      [Math.floor(Math.random()*5)];
+function createConfetti(){
+  for(let i=0;i<80;i++){
+    let conf=document.createElement("div");
+    conf.className="confetti";
+    conf.style.left=Math.random()*window.innerWidth+"px";
+    conf.style.backgroundColor = ["#ff69b4","#ff1493","#ff77ff","#ffb3d9","#ff99cc"][Math.floor(Math.random()*5)];
     document.body.appendChild(conf);
-
-    setTimeout(() => {
-      conf.remove();
-    }, 3000);
+    setTimeout(()=>{conf.remove();},3000);
   }
 }
 
-/* Continuous floating hearts */
-setInterval(() => {
-  let heart = document.createElement("div");
-  heart.className = "heart-bg";
-  heart.innerHTML = "💖";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.fontSize = (15 + Math.random()*15) + "px";
-  document.body.appendChild(heart);
+function floatHearts(){
+  setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.className="heart-bg";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.fontSize=(15+Math.random()*15)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},8000);
+  },800);
+}
+floatHearts();
 
-  setTimeout(() => {
-    heart.remove();
-  }, 8000);
-}, 800);
+envelope.addEventListener("click", ()=>{
+  flap.style.transform="rotateX(180deg)";
+  envelope.style.opacity="0";
+  envelope.style.pointerEvents="none";
+  envelope.style.zIndex="0";
 
+  paragraph.style.opacity="1";
+  paragraph.style.transform="translateY(0)";
+  
+  bgMusic.play();
+  createConfetti();
+  showLines();
+});
 </script>
-
 </body>
 </html>
