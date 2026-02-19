@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mirha</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffd6e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Floating hearts */
+.heart-bg {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatHearts 8s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatHearts {
+  0% { transform: translateY(0); opacity: 0.7; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+.container {
+  text-align: center;
+  position: relative;
+  perspective: 1000px;
+}
+
+.envelope {
+  width: 300px;
+  height: 190px;
+  position: relative;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.base {
+  width: 100%;
+  height: 100%;
+  background: #ff8fab;
+  border-radius: 10px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  position: absolute;
+}
+
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff6f91;
+  border-radius: 10px;
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  pointer-events: none; /* ensures click passes through */
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+}
+
+.label {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  z-index: 3;
+}
+
+.sub {
+  position: absolute;
+  width: 100%;
+  top: 100px;
+  color: white;
+  font-size: 16px;
+  z-index: 3;
+}
+
+.letter {
+  position: absolute;
+  width: 270px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  top: 0;
+  left: 15px;
+  transform: translateY(0);
+  opacity: 0;
+  transition: all 1s ease;
+  min-height: 230px;
+  z-index: 1;
+}
+
+.envelope.open ~ .letter {
+  transform: translateY(-230px);
+  opacity: 1;
+}
+
+/* Signature animation */
+.signature {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+}
+
+.signature.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Confetti */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  100% { transform: translateY(600px) rotate(720deg); opacity:0; }
+}
+
+.decor {
+  position: absolute;
+  font-size: 30px;
+}
+
+.flower-left { left: -70px; top: 30px; }
+.flower-right { right: -70px; top: 30px; }
+.balloon-left { left: -80px; top: -100px; }
+.balloon-right { right: -80px; top: -100px; }
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+
+<div class="container">
+
+  <div class="decor flower-left">🌸</div>
+  <div class="decor flower-right">🌸</div>
+  <div class="decor balloon-left">🎈</div>
+  <div class="decor balloon-right">🎈</div>
+
+  <div class="envelope" onclick="openEnvelope(this)">
+    <div class="base"></div>
+    <div class="flap"></div>
+    <div class="label">For Mirha 💌</div>
+    <div class="sub">Click to Open</div>
+  </div>
+
+  <div class="letter">
+    <p id="typedText"></p>
+    <div id="signature" class="signature">From: Ubada 🤍</div>
+  </div>
+
+</div>
+
+<script>
+
+const message = `Happy Birthday Mirha 🤍
+
+You’re not just my best friend, you’re honestly like an elder sister to me — the one who guides, scolds when needed, and still stands by me no matter what.
+
+You’ve been my safe place, the person I can talk to without filtering myself, without overthinking. That kind of comfort is rare, and I don’t take it lightly.
+
+Admin of the group, manager of chaos, future big-shot lawyer — you handle everything like a boss. I genuinely admire your strength and the way you carry yourself.
+
+I just hope this year gives you the same loyalty, comfort, and support that you give to others. And I hope you always feel like you can count on me the same way I count on you.
+
+Stay strong. Stay brilliant. And don’t change. 🤍`;
+
+let i = 0;
+let speed = 35;
+
+function typeWriter() {
+  if (i < message.length) {
+    document.getElementById("typedText").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  } else {
+    document.getElementById("signature").classList.add("show");
+  }
+}
+
+function openEnvelope(el) {
+  el.classList.add("open");
+  document.getElementById("bgMusic").play();
+  typeWriter();
+  createConfetti();
+}
+
+function createConfetti() {
+  for (let i = 0; i < 80; i++) {
+    let conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.style.left = Math.random() * window.innerWidth + "px";
+    conf.style.backgroundColor =
+      ["#ff6f91","#ffc2d1","#ff8fab","#ffffff","#ffb3c6"]
+      [Math.floor(Math.random()*5)];
+    document.body.appendChild(conf);
+
+    setTimeout(() => {
+      conf.remove();
+    }, 3000);
+  }
+}
+
+/* Continuous floating hearts */
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.className = "heart-bg";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = (15 + Math.random()*15) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 8000);
+}, 800);
+
+</script>
+
+</body>
+</html>
